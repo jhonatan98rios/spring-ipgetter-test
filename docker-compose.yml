@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-container
+    environment:
+      POSTGRES_DB: your_database_name
+      POSTGRES_USER: your_database_user
+      POSTGRES_PASSWORD: your_database_password
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+#  spring-app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: spring-app-container
+#    depends_on:
+#      - postgres
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/your_database_name
+#      SPRING_DATASOURCE_USERNAME: your_database_user
+#      SPRING_DATASOURCE_PASSWORD: your_database_password
+#    networks:
+#      - app-network
+
+#  maven-builder:
+#    image: jelastic/maven:3.9.5-openjdk-21
+#    volumes:
+#      - ./:/usr/src/mymaven
+#    working_dir: /usr/src/mymaven
+#    command: mvn clean package
+
+networks:
+  app-network:
+    driver: bridge
